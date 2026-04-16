@@ -86,8 +86,9 @@
 
         {{-- Main area --}}
         <div class="lg:ml-64">
-            {{-- Top bar --}}
-            <header class="sticky top-0 z-10 flex h-14 items-center border-b border-gray-200 bg-white px-4 dark:border-gray-700 dark:bg-gray-900">
+            {{-- Top bar: padding-top uses NativePHP's --inset-top CSS var so the bar sits below the status bar / notch --}}
+            <header class="sticky top-0 z-10 flex flex-col border-b border-gray-200 bg-white px-4 dark:border-gray-700 dark:bg-gray-900" style="padding-top: var(--inset-top, 0px);">
+                <div class="flex h-14 items-center">
                 <button
                     @click="sidebarOpen = !sidebarOpen"
                     class="mr-3 rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 lg:hidden"
@@ -127,10 +128,11 @@
                         </svg>
                     </button>
                 </form>
+                </div>
             </header>
 
             {{-- Page content --}}
-            <main class="nativephp-safe-area">
+            <main>
                 {{ $slot }}
             </main>
         </div>
