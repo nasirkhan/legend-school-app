@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Tasks;
 
 use App\Services\ApiService;
 use Illuminate\View\View;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Home')]
-class Home extends Component
+#[Title('Tasks')]
+class Index extends Component
 {
     /** @var array<string, mixed> */
     public array $user = [];
@@ -21,16 +21,26 @@ class Home extends Component
 
     public bool $canCreateTasks = false;
 
-    public string $taskLoadError = '';
+    public string $loadError = '';
 
     public function mount(ApiService $api): void
     {
-        $sessionUser = session('api_user', []);
+        $this->loadCurrentUser($api);
+        $this->loadTasks($api);
+    }
 
+    public function render(): View
+    {
+        return view('livewire.tasks.index');
+    }
+
+    protected function loadCurrentUser(ApiService $api): void
+    {
+        $sessionUser = session('api_user', []);
         $response = $api->getProfile();
 
         if ($response->successful()) {
-            $this->user = $response->json('data');
+            $this->user = $response->json('data', []);
             session(['api_user' => $this->user]);
         } else {
             $this->user = $sessionUser;
@@ -38,22 +48,6 @@ class Home extends Component
 
         $this->canCreateTasks = collect($this->user['permissions'] ?? [])
             ->contains('add_tasks');
-
-        $this->loadTasks($api);
-    }
-
-    public function logout(ApiService $api): void
-    {
-        $api->logout();
-
-        session()->forget(['api_token', 'api_user']);
-
-        $this->redirect(route('login'), navigate: true);
-    }
-
-    public function render(): View
-    {
-        return view('livewire.home');
     }
 
     protected function loadTasks(ApiService $api): void
@@ -61,7 +55,7 @@ class Home extends Component
         $response = $api->getTasks(['per_page' => 100]);
 
         if (! $response->successful()) {
-            $this->taskLoadError = $response->json('message') ?? 'Unable to load tasks right now.';
+            $this->loadError = $response->json('message') ?? 'Unable to load tasks right now.';
 
             return;
         }

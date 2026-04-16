@@ -30,4 +30,13 @@
     @else
         <p class="text-sm text-gray-400 dark:text-gray-500">Loading profile…</p>
     @endif
+
+    <div class="mt-6">
+        @include('livewire.tasks.partials.task-sections', [
+            'createdTasks' => $createdTasks,
+            'assignedTasks' => $assignedTasks,
+            'canCreateTasks' => $canCreateTasks,
+            'loadError' => $taskLoadError,
+        ])
+    </div>
 </div>

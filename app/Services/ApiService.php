@@ -60,6 +60,68 @@ class ApiService
         return $this->withToken()->patch("{$this->baseUrl}/api/v1/users/profile", $data);
     }
 
+    /**
+     * GET /api/v1/tasks
+     *
+     * @param  array<string, mixed>  $query
+     */
+    public function getTasks(array $query = []): Response
+    {
+        return $this->withToken()->get("{$this->baseUrl}/api/v1/tasks", $query);
+    }
+
+    /**
+     * GET /api/v1/tasks/options
+     */
+    public function getTaskOptions(): Response
+    {
+        return $this->withToken()->get("{$this->baseUrl}/api/v1/tasks/options");
+    }
+
+    /**
+     * GET /api/v1/tasks/{task}
+     */
+    public function getTask(int $taskId): Response
+    {
+        return $this->withToken()->get("{$this->baseUrl}/api/v1/tasks/{$taskId}");
+    }
+
+    /**
+     * POST /api/v1/tasks
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function createTask(array $data): Response
+    {
+        return $this->withToken()->post("{$this->baseUrl}/api/v1/tasks", $data);
+    }
+
+    /**
+     * PATCH /api/v1/tasks/{task}
+     *
+     * @param  array<string, mixed>  $data
+     */
+    public function updateTask(int $taskId, array $data): Response
+    {
+        return $this->withToken()->patch("{$this->baseUrl}/api/v1/tasks/{$taskId}", $data);
+    }
+
+    /**
+     * PATCH /api/v1/tasks/{task}/complete
+     */
+    public function completeTask(int $taskId): Response
+    {
+        return $this->withToken()->patch("{$this->baseUrl}/api/v1/tasks/{$taskId}/complete");
+    }
+
+    /**
+     * PATCH /api/v1/tasks/{task}/reopen
+     */
+    public function reopenTask(int $taskId): Response
+    {
+        return $this->withToken()->patch("{$this->baseUrl}/api/v1/tasks/{$taskId}/reopen");
+    }
+
     private function withToken(): \Illuminate\Http\Client\PendingRequest
     {
         return Http::withToken(session('api_token', ''))
