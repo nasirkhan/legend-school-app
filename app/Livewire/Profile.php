@@ -19,6 +19,13 @@ class Profile extends Component
 
         $response = $api->getProfile();
 
+        if ($response->status() === 401) {
+            session()->forget(['api_token', 'api_user']);
+            $this->redirect(route('login'), navigate: true);
+
+            return;
+        }
+
         if ($response->successful()) {
             $this->user = $response->json('data');
             session(['api_user' => $this->user]);

@@ -39,6 +39,13 @@ class Index extends Component
         $sessionUser = session('api_user', []);
         $response = $api->getProfile();
 
+        if ($response->status() === 401) {
+            session()->forget(['api_token', 'api_user']);
+            $this->redirect(route('login'), navigate: true);
+
+            return;
+        }
+
         if ($response->successful()) {
             $this->user = $response->json('data', []);
             session(['api_user' => $this->user]);
@@ -53,6 +60,13 @@ class Index extends Component
     protected function loadTasks(ApiService $api): void
     {
         $response = $api->getTasks(['per_page' => 100]);
+
+        if ($response->status() === 401) {
+            session()->forget(['api_token', 'api_user']);
+            $this->redirect(route('login'), navigate: true);
+
+            return;
+        }
 
         if (! $response->successful()) {
             $this->loadError = $response->json('message') ?? 'Unable to load tasks right now.';
