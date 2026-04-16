@@ -14,11 +14,11 @@
     @if (! empty($user))
         <div class="rounded-xl bg-white p-4 shadow-sm dark:bg-gray-800">
             <div class="flex items-center gap-4">
-                <img
+                {{-- <img
                     src="{{ $user['avatar'] ?? '/img/default-avatar.jpg' }}"
                     alt="Avatar"
                     class="h-14 w-14 rounded-full object-cover"
-                />
+                /> --}}
                 <div>
                     <p class="font-semibold text-gray-900 dark:text-white">
                         {{ $user['name'] ?? '—' }}
