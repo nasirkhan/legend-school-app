@@ -17,15 +17,6 @@
                 <h2 class="text-base font-semibold text-gray-900 dark:text-white">Created Tasks</h2>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Tasks you created for others.</p>
             </div>
-
-            @if ($canCreateTasks ?? false)
-                <a
-                    href="{{ route('tasks.create') }}"
-                    class="rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
-                >
-                    New Task
-                </a>
-            @endif
         </div>
 
         @if ($createdTasks)

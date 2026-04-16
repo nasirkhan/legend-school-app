@@ -33,6 +33,13 @@ class Create extends Component
         $response = $api->createTask($this->taskPayload());
         $this->saveError = '';
 
+        if ($response->status() === 401) {
+            session()->forget(['api_token', 'api_user']);
+            $this->redirect(route('login'), navigate: true);
+
+            return;
+        }
+
         if ($response->successful()) {
             session()->flash('status', 'Task created successfully.');
             $this->redirect(route('tasks.index'), navigate: true);
@@ -52,6 +59,13 @@ class Create extends Component
     {
         $sessionUser = session('api_user', []);
         $response = $api->getProfile();
+
+        if ($response->status() === 401) {
+            session()->forget(['api_token', 'api_user']);
+            $this->redirect(route('login'), navigate: true);
+
+            return;
+        }
 
         if ($response->successful()) {
             $this->user = $response->json('data', []);

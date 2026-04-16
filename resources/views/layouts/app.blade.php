@@ -109,9 +109,24 @@
                     </svg>
                 </button>
 
-                <h1 class="text-base font-semibold text-gray-900 dark:text-white">
+                <h1 class="flex-1 text-base font-semibold text-gray-900 dark:text-white">
                     {{ $title ?? config('app.name', 'Legend School') }}
                 </h1>
+
+                {{-- Logout (top bar, always visible) --}}
+                <form method="POST" action="{{ route('logout') }}" class="ml-auto">
+                    @csrf
+                    <button
+                        type="submit"
+                        class="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800"
+                        aria-label="Sign out"
+                        title="Sign out"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/>
+                        </svg>
+                    </button>
+                </form>
             </header>
 
             {{-- Page content --}}
