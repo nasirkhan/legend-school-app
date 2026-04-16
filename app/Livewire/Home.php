@@ -3,8 +3,11 @@
 namespace App\Livewire;
 
 use App\Services\ApiService;
+use Illuminate\View\View;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Home')]
 class Home extends Component
 {
     /** @var array<string, mixed> */
@@ -33,7 +36,7 @@ class Home extends Component
         $this->redirect(route('login'), navigate: true);
     }
 
-    public function render(): \Illuminate\View\View
+    public function render(): View
     {
         return view('livewire.home');
     }

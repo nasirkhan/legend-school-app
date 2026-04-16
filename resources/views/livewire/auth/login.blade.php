@@ -1,6 +1,6 @@
 <div class="w-full max-w-sm">
     <h1 class="mb-8 text-center text-2xl font-semibold text-gray-900 dark:text-white">
-        {{ config('app.name') }}
+        Welcome to {{ config('app.name') }}
     </h1>
 
     @if ($errorMessage)

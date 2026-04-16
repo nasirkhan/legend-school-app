@@ -1,16 +1,4 @@
 <div class="p-6">
-    <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-xl font-semibold text-gray-900 dark:text-white">Home</h1>
-
-        <button
-            wire:click="logout"
-            wire:loading.attr="disabled"
-            class="rounded-lg bg-gray-100 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300"
-        >
-            Sign out
-        </button>
-    </div>
-
     @if (! empty($user))
         <div class="rounded-xl bg-white p-4 shadow-sm dark:bg-gray-800">
             <div class="flex items-center gap-4">
