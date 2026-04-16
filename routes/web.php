@@ -31,4 +31,11 @@ Route::middleware('auth.api')->group(function () {
 
         return redirect()->route('login');
     })->name('logout');
+
+    Route::get('/logout', function (ApiService $api) {
+        $api->logout();
+        session()->forget(['api_token', 'api_user']);
+
+        return redirect()->route('login');
+    })->name('logout.get');
 });
