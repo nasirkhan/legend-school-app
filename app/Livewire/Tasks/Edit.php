@@ -19,7 +19,7 @@ class Edit extends Component
     public array $user = [];
 
     /** @var array<string, mixed> */
-    public array $task = [];
+    public array $taskData = [];
 
     public bool $canEditTask = false;
 
@@ -78,8 +78,8 @@ class Edit extends Component
             abort($response->status());
         }
 
-        $this->task = $response->json('data', []);
-        $this->canEditTask = (bool) ($this->task['can']['edit'] ?? false);
-        $this->fillTaskForm($this->task);
+        $this->taskData = $response->json('data', []);
+        $this->canEditTask = (bool) ($this->taskData['can']['edit'] ?? false);
+        $this->fillTaskForm($this->taskData);
     }
 }
